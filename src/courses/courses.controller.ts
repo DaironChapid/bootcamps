@@ -8,14 +8,17 @@ export class CoursesController {
   constructor(private readonly coursesService: CoursesService) {}
 
   @Post()
-  create(@Body() createCourseDto: CreateCourseDto) {
-    return this.coursesService.FindAll(createCourseDto);
+  create(@Body() body: any) {
+    return this.coursesService.create(body);
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.coursesService.findOne(+id);
   }
+
+  
+
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateCourseDto: UpdateCourseDto) {

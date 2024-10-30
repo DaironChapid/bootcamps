@@ -3,17 +3,34 @@ import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 @Entity('users')
 export class User {
 
-    @Column()
+    @PrimaryGeneratedColumn()
+    id: number
+
+    @Column({type: 'varchar',
+        length: 100,
+        nullable: false})
     name: string
 
-    @Column()
+    @Column({type: 'varchar',
+        length: 100,
+        nullable: false})
     email: string
 
-    @Column()
-    role: string 
+    @Column({name: 'role', 
+        enum:['Customers', 
+            'Editor', 
+            'Admin'], 
+        type: 'enum', 
+    nullable: false})
+    role: role
     
-    @Column()
+    @Column({type: 'varchar',
+        length: 100,
+        nullable: false})
     password: string 
     
 }
 
+enum role {'Customers', 
+    'Editor', 
+    'Admin'}

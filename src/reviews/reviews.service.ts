@@ -1,26 +1,46 @@
 import { Injectable } from '@nestjs/common';
 import { CreateReviewDto } from './dto/create-review.dto';
 import { UpdateReviewDto } from './dto/update-review.dto';
+import { Review } from './entities/review.entity';
+import { Repository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class ReviewsService {
-  create(createReviewDto: CreateReviewDto) {
-    return 'This action adds a new review';
+  constructor(@InjectRepository(Review) private ReviewRepository: Repository<Review> ) {
+  }
+
+
+
+  create(payload: any) {
+    const newReview= this.ReviewRepository.create(payload)
+    //grabar esa instancia 
+    return this.ReviewRepository.save(newReview) ;
+
   }
 
   findAll() {
-    return `This action returns all reviews`;
+    return this.ReviewRepository.find();
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} review`;
+    return this.ReviewRepository.findOneBy({id});
   }
 
-  update(id: number, updateReviewDto: UpdateReviewDto) {
-    return `This action updates a #${id} review`;
+  async update(id: number, payload: any) {
+    const upReview = await this.ReviewRepository.findOneBy({id});
+
+  this.ReviewRepository.merge(upReview, payload)
+  
+  return this.ReviewRepository.save(upReview)
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} review`;
+
+  async remove(id: number) {
+    const delReview = await this.ReviewRepository.findOneBy({id});
+
+    this.ReviewRepository.delete(delReview)
+
+    return delReview
   }
 }

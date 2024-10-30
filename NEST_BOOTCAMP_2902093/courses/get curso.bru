@@ -1,0 +1,25 @@
+meta {
+  name: get curso
+  type: http
+  seq: 2
+}
+
+get {
+  url: http://localhost:3000/courses/
+  body: json
+  auth: none
+}
+
+headers {
+  content-type: application/json
+}
+
+body:json {
+  {
+    "title": "Websites",
+    "weeks": 5,
+    "tuition": 45000.90,
+    "minimumSkill": "Intermediate",
+    "createdAt": "22-02-02"
+  }
+}

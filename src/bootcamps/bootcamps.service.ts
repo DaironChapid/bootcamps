@@ -15,8 +15,12 @@ constructor(@InjectRepository(Bootcamp) private BootcampRepository: Repository<B
 
 }
 
-create(createBootcampDto: CreateBootcampDto) {
-    return 'This action adds a new bootcamp';
+create(payload: any) {
+    // crear una instacia de una entiti de bootcam
+    const newBootcamp = this.BootcampRepository.create(payload)
+    //grabar esa instancia 
+    return this.BootcampRepository.save(newBootcamp) ;
+
   }
 
   findAll() {
@@ -27,11 +31,23 @@ create(createBootcampDto: CreateBootcampDto) {
     return this.BootcampRepository.findOneBy({id});
   }
 
-  update(id: number, updateBootcampDto: UpdateBootcampDto) {
-    return `This action updates a #${id} bootcamp`;
+
+  // encontrar el bootcamp por id
+  async update(id: number, payload: any) {
+    const upBootampc = await this.BootcampRepository.findOneBy({id});
+
+  this.BootcampRepository.merge(upBootampc, payload)
+  
+  this.BootcampRepository.save(upBootampc)
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} bootcamp`;
+
+
+  async remove(id: number) {
+    const delBotcamp = await this.BootcampRepository.findOneBy({id});
+
+    this.BootcampRepository.delete(delBotcamp)
+
+    return delBotcamp
   }
 }

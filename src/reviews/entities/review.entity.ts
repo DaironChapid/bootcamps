@@ -1,17 +1,29 @@
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
-@Entity('reviews')
+
+@Entity()
 export class Review {
 
-    @Column()
-    title: string
+@PrimaryGeneratedColumn()
+id:Number
 
-    @Column()
-    content: string
-    
-    @Column()
-    rating: string
+@Column({
+    type: 'varchar',
+    length: 100,
+    nullable: false
+})
+title: string
 
-    
+@Column({
+    type: 'text',
+    nullable: false
+})
+coment: string
+
+@Column({
+    type: "tinyint",
+    nullable: false
+})
+rating: number
 
 }

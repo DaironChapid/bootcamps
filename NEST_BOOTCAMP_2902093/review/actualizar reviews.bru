@@ -1,0 +1,17 @@
+meta {
+  name: actualizar reviews
+  type: http
+  seq: 4
+}
+
+put {
+  url: http://localhost:3000/bootcamps/2
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "averageRating": 5
+  }
+}

@@ -6,31 +6,24 @@ export class Course {
     @PrimaryGeneratedColumn()
     id: number
 
-    @Column('varchar' , {length : 20})
-    phone:string
+    @Column('varchar' , {length : 40})
+    title:string
 
-    @Column('varchar' , { length: 20 })
-    name: string
+    @Column({type: 'decimal' , nullable: true , default: 4})
+    weeks: number;
 
-    @Column('varchar' , {length:100 , default:"XXX"})
-    address: string
+    @Column({type: 'decimal'})
+    tuition: true
 
-    @Column('text')
-    topics:string
-        
-    @Column('double' , )
-    averageRating:number
-
-    @Column('date')
-    createdAt: Date
-
-    @Column( 'varchar', {length: 30})
-    minimumSkills : minimumSkill
+    @Column({name: 'minimum_skill', 
+        enum:['Beginner', 
+            'Intermediate', 
+            'Advance'], 
+        type: 'enum' })
+    minimumSkill:  minimumSkill
 
 }
 
-enum minimumSkill {
-    'Beginner', 
+enum minimumSkill {'Beginner', 
     'Intermediate', 
-    'Advance'
-}
+    'Advance'} 

@@ -1,8 +1,7 @@
-import { CreateCourseDto } from './dto/create-course.dto';
-import { UpdateCourseDto } from './dto/update-course.dto';
+
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Injectable } from '@nestjs/common';
+import { Injectable, PayloadTooLargeException } from '@nestjs/common';
 import { Course } from './entities/course.entity';
 
   @Injectable()
@@ -11,15 +10,20 @@ import { Course } from './entities/course.entity';
 
   }
 
-  FindAll(createCourseDto: CreateCourseDto) {
-    return this.CourseRepository.find();
+  create(payload: any){
+    const newCurso = this.CourseRepository.create(payload) 
+    return this.CourseRepository.save(newCurso)
+  }
+  
+  FindAll(createCourseDto: any) {
+    return this.CourseRepository.find()
   }
 
   findOne(id: number) {
-    return this.CourseRepository.findOneBy({id});
+    return this.CourseRepository.findOneBy({id: id});
   }
 
-  update(id: number, updateCourseDto: UpdateCourseDto) {
+  update(id: number, updateCourseDto: any) {
     return `This action updates a #${id} course`;
   }
 
